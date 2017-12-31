@@ -4,27 +4,16 @@ import './bootstrap.css';
 import './weather-icons-master/css/weather-icons.css';
 import {DebounceInput} from 'react-debounce-input';
 
-
 class App extends Component {
   constructor(){
     super();
     this.state = {
         weathers: [],
         city: "",
-        country: "",
-        loading: true
+        country: ""
     };
   }
-  // componentWillMount(){
-  //   return(
-  //     <div>Enter a city to get started</div>
-  //   );
-  // }
-  // componentWillUpdate(){
-  //   return(
-  //     <div>Enter a city to get started</div>
-  //   );
-  // }
+
   getWeather(cityName){
     var h5 = document.getElementById("h5");
     h5.style.display = "none";
@@ -61,16 +50,19 @@ class App extends Component {
       return(  
         <div className="container">
           <br/>
-          <div className="row" id="h5">
-            <h5>Enter a city to get started </h5>
+          <div className="row">
+            <div className="col-md-8">
+              <h5 id="h5">Enter a city to get started </h5>
+            </div>
+            <div className="col-md-4 fixed">
+              <DebounceInput minLength={2} className="input-sm" debounceTimeout={300} onChange={event => this.getWeather(event.target.value)} />
+            </div>
           </div>
           <div className="row">
             <div className="col-md-8">
               <h4 style={{display: 'none'}} id="city">{city}, {country}</h4>
             </div>
-            <div className="col-md-4">
-              <DebounceInput minLength={2} className="input" debounceTimeout={300} onChange={event => this.getWeather(event.target.value)} />
-            </div>
+            
           </div>
           <div className="row" style={divStyle}>
               {weathers.map(weather =>
