@@ -17,12 +17,13 @@ class App extends Component {
   getWeather(cityName){
     var h5 = document.getElementById("h5");
     h5.style.display = "none";
-    var city = document.getElementById("city");
-    city.style.display= "block";
+    
     fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?q=${cityName},us&cnt=6&APPID=71c32854c184fc76cc993c70fb76fa64&units=metric&mode=JSON`)
       .then(response => response.json())
       .then(data => this.setState({ weathers: data.list, city: data.city.name, country: data.city.country}))
       .catch(error => console.log(error) );
+    var city = document.getElementById("city");
+    city.style.display= "block";
   }
 
   timeConverter(UNIX_timestamp){
